@@ -3,15 +3,19 @@
 # require 'dm-sqlite-adapter'
 # require 'multi_json'
 # require 'typhoeus'
+require 'debugger'
 
 Bundler.require
 require_relative 'models/parser'
+require_relative 'models/station'
 
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/restfulbikesdevelopment.db")
+DataMapper.auto_migrate!
 
 module Bikes
   class App < Sinatra::Base
     get '/' do
+      debugger
       "Hello world"
     end
 
@@ -26,9 +30,6 @@ module Bikes
 
     get '/station/:id/edit' do
     end
-
-
-
 
   end
 end
