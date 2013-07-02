@@ -1,0 +1,33 @@
+<h1>CitiBike Stations</h1>
+
+<div id="map-index" class="span9"></div>
+</br>
+</br>
+<div id="container" class="span9">
+  <% @stations.each do |station| %>
+    <% var_button = ""
+      if station.availableBikes > 6
+        var_button = "btn-success"
+      elsif station.availableBikes > 3
+        var_button = ""
+      else
+        var_button = "btn-danger"
+      end
+    %>
+    <button class="btn btn-mini <%=var_button%>"><a href="/stations/<%=station.id%>"><%=station.stationName%></a></button>
+  <% end%>
+</div>
+
+  <script type="text/javascript" charset="utf-8">
+  var map = L.map('map-index').setView([40.7395, -73.9500], 12);
+  L.tileLayer('http://tile.stamen.com/toner/{z}/{x}/{y}.png', {attribution: 'Stamen Toner'}, {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+    maxZoom: 20
+  }).addTo(map);
+
+  <% @stations.each do |station| %>
+    L.marker([<%=station.latitude%>, <%=station.longitude%>]).addTo(map);
+  <% end %>
+</script>
+
+
